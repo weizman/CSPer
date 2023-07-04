@@ -1,0 +1,12 @@
+<html>
+  <head>
+    <script>
+      const csp = location.href.split('csp=')[1];
+      document.currentScript.remove();
+      document.write(`<meta http-equiv="Content-Security-Policy" content="${csp}">`);
+    </script>
+  </head>
+  <body>
+    
+  </body>
+</html>
