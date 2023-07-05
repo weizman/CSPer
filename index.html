@@ -1,9 +1,11 @@
 <html>
   <head>
     <script>
-      const csp = decodeURI(location.href.split('csp=')[1]);
       document.currentScript.remove();
-      document.write(`<meta http-equiv="Content-Security-Policy" content="${csp}">`);
+      try {
+        const csp = decodeURI(location.href.split('csp=')[1]);
+        document.write(`<meta http-equiv="Content-Security-Policy" content="${csp}">`);
+      } catch {}
     </script>
   </head>
   <body>
